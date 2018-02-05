@@ -12,14 +12,6 @@ import java.lang.Math;
 import javax.imageio.ImageIO;
 
 public class Guesser {
-    private BufferedImage num;
-    private BufferedImage img;
-    private double pixval;
-    private PrintWriter prntwrt;
-    private FileWriter filewrt;
-
-
-
     public static void resize(String inputImagePath,
             String outputImagePath, int scaledWidth, int scaledHeight)
             throws IOException {
@@ -46,17 +38,20 @@ public class Guesser {
 
 
     public void guess(String imgname) {
+        BufferedImage img;
         try {
             img = ImageIO.read(new File(imgname));
         } catch (IOException e) {
+          return ;
         }
         int top=0, bottom=img.getHeight(), left=0, right=img.getWidth();
 
-
+        double pixval;
         boolean f =false;
         for (int i = 0; i < img.getHeight(); i++) {
             boolean b = false;
             for (int j = 0; j < img.getWidth(); j++) {
+
                 Color pixcol = new Color(img.getRGB(j, i));
                 pixval = (((pixcol.getRed() * 0.30) + (pixcol.getBlue() * 0.59) + (pixcol
                         .getGreen() * 0.11)));//0.2989 * R + 0.5870 * G + 0.1140 * B
@@ -107,13 +102,14 @@ public class Guesser {
         g2d.dispose();
         int lowest_error = 99999;
         int guess = 0;
-
+        BufferedImage num;
         for (int n = 0; n < 10; ++n) {
 
             int error = 0;
             try {
                 num = ImageIO.read(new File("numbers/"+Integer.toString(n)+".jpg"));
             } catch (IOException e) {
+              return ;
             }
             for(int i = 0; i < 100; ++i) {
                 for (int j = 0; j < 100; ++j) {
