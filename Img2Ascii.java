@@ -35,8 +35,9 @@ public class Img2Ascii {
         for (int i = 0; i < img.getHeight(); i++) {
             for (int j = 0; j < img.getWidth(); j++) {
                 Color pixcol = new Color(img.getRGB(j, i));
-                pixval = (((pixcol.getRed() * 0.30) + (pixcol.getBlue() * 0.59) + (pixcol
-                        .getGreen() * 0.11)));//0.2989 * R + 0.5870 * G + 0.1140 * B
+                pixval = (pixcol.getRed() + pixcol.getBlue()+pixcol.getGreen())/3;
+                //(((pixcol.getRed() * 0.30) + (pixcol.getBlue() * 0.59) + (pixcol
+                //        .getGreen() * 0.11)));//0.2989 * R + 0.5870 * G + 0.1140 * B
                 print(strChar(pixval));
             }
             try {
